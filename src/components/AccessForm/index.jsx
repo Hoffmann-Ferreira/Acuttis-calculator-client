@@ -58,7 +58,7 @@ const AccessForm = (props) => {
           <input
             type='tetxt'
             placeholder='Digite sua senha'
-            {...register('senha', { required: true })}
+            {...register('password', { required: true })}
           />
           <p>{errors?.senha?.message}</p>
           <div>
