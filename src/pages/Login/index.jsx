@@ -22,7 +22,7 @@ const loginSchema = yup.object({
             <h1>Bem vindo a calculadora de jornada de trabalho Acuttis</h1>
         </header>
         <main>
-            <AccessForm schema={loginSchema} rote='' registering={false}/>
+            <AccessForm schema={loginSchema} rote='/login' registering={false}/>
         </main>
         </>
     )
