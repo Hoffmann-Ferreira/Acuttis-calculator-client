@@ -4,6 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import api from '../../services/api';
 import toast from 'react-hot-toast';
+import * as Styled from './styles';
 
 const AccessForm = (props) => {
   const navigate = useNavigate();
@@ -30,8 +31,8 @@ const AccessForm = (props) => {
             icon: '✅',
             style: {
               borderRadius: '10px',
-              background: '#AA6CFF',
-              color: '#fff',
+              background: '#ffffff',
+              color: '#04383e',
             },
           });
         } else {
@@ -44,8 +45,8 @@ const AccessForm = (props) => {
           icon: '❌',
           style: {
             borderRadius: '10px',
-            background: '#AA6CFF',
-            color: '#fff',
+            background: '#ffffff',
+            color: '#04383e',
           },
         });
       });
@@ -53,7 +54,11 @@ const AccessForm = (props) => {
 
   return (
     <>
-      <form onSubmit={handleSubmit(handleAcess)}>
+      <Styled.FormAcess onSubmit={handleSubmit(handleAcess)}>
+        <img
+          src='https://media.discordapp.net/attachments/967162864408346697/1128031106147565618/cropped-Logo-Acuttis-2-e1620761195611.png'
+          alt='Logo Acuttis'
+        />
         {props.registering && (
           <>
             <label>Nome:</label>
@@ -73,15 +78,9 @@ const AccessForm = (props) => {
         />
         <p>{errors?.email?.message}</p>
         <label>Digite sua senha:</label>
-        {props.registering && (
-          <p>
-            A senha deve conter no mínimo 8 caracteres e incluir pelo menos uma
-            letra maiúscula, um dígito e caracter especial.
-          </p>
-        )}
         <input
           type='password'
-          placeholder='Digite sua senha'
+          placeholder='Padrão esperado myPassword2!'
           {...register('password', { required: true })}
         />
         <p>{errors?.password?.message}</p>
@@ -100,7 +99,7 @@ const AccessForm = (props) => {
             </>
           )}
         </div>
-      </form>
+      </Styled.FormAcess>
     </>
   );
 };

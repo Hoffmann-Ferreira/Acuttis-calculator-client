@@ -6,13 +6,13 @@ import { useForm } from 'react-hook-form';
 import api from '../../services/api';
 import HoursHistory from '../../components/History';
 import toast from 'react-hot-toast';
+import * as Styled from './styles';
 
 const Calculator = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
   const [value, setValue] = useState(0);
   const [refresh, setRefresh] = useState(false);
-  //   let amout = 0;
 
   useEffect(() => {
     if (!token) {
@@ -75,8 +75,8 @@ const Calculator = () => {
           icon: '❌',
           style: {
             borderRadius: '10px',
-            background: '#AA6CFF',
-            color: '#fff',
+            background: '#ffffff',
+            color: '#04383e',
           },
         });
       });
@@ -89,32 +89,41 @@ const Calculator = () => {
       icon: '✅',
       style: {
         borderRadius: '10px',
-        background: '#AA6CFF',
-        color: '#fff',
+        background: '#ffffff',
+        color: '#04383e',
       },
     });
   };
 
   return (
     <>
-      <header>
-        <div>
-          <h1>Acuttis sistema de apuração de jornada de trabalho </h1>
-          <button onClick={() => logout()}>Sair</button>
+      <Styled.HeaderCalc>
+        <div className='logoContainer'>
+          <img
+            src='https://media.discordapp.net/attachments/967162864408346697/1128031106147565618/cropped-Logo-Acuttis-2-e1620761195611.png'
+            alt='Logo Acuttis'
+          />
         </div>
-      </header>
-      <main>
-        <h3>Regras:</h3>
-        <p>Preencha os campos a baixo seguindo as seguintes diretrizes!</p>
-        <ol>
-          <li>Prenchimento obrigatório de todos os campos;</li>
-          <li>A jornada de trabalho não deve ultrapassar 24hrs;</li>
-          <li>
-            Os valores das horas diurna e noturna deve ser em moeda nacional,
-            real;
-          </li>
-        </ol>
-        <form onSubmit={handleSubmit(handleCaculation)}>
+      </Styled.HeaderCalc>
+      <Styled.MainCalc>
+        <Styled.InfoContainer>
+          <button className='buttonLogout' onClick={() => logout()}>
+            Sair
+          </button>
+          <h1>Sistema de apuração de jornada de trabalho </h1>
+          <h3>Regras:</h3>
+          <p>Preencha os campos a baixo seguindo as seguintes diretrizes!</p>
+          <ol>
+            <li>Prenchimento obrigatório de todos os campos;</li>
+            <li>A jornada de trabalho não deve ultrapassar 24hrs;</li>
+            <li>
+              Os valores das horas diurna e noturna deve ser em moeda nacional,
+              real;
+            </li>
+          </ol>
+        </Styled.InfoContainer>
+
+        <Styled.FormCalc onSubmit={handleSubmit(handleCaculation)}>
           <label>Nome do colaborador:</label>
           <input
             type='text'
@@ -155,12 +164,15 @@ const Calculator = () => {
           <div>
             <button type='submit'>Calcular</button>
           </div>
-        </form>
-      </main>
-      <p> valor total: {value}</p>
-      <div>
-        <HoursHistory refresh={refresh} />
-      </div>
+        </Styled.FormCalc>
+        <Styled.ValueContainer>
+          <p> Valor total das horas R$: {value}</p>
+        </Styled.ValueContainer>
+
+        <Styled.HistoryContainer>
+          <HoursHistory refresh={refresh} />
+        </Styled.HistoryContainer>
+      </Styled.MainCalc>
     </>
   );
 };

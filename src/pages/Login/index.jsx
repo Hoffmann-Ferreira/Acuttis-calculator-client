@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import * as yup from 'yup';
 import AccessForm from '../../components/AccessForm';
 import { useNavigate } from 'react-router-dom';
+import * as Styled from './styles';
 
 const Login = () => {
   const loginSchema = yup.object({
@@ -24,20 +25,22 @@ const Login = () => {
   useEffect(() => {
     if (token) {
       navigate('/calculadora');
-      console.log('entrei')
+      console.log('entrei');
     } else {
       navigate('/');
     }
-  }, [])
+  }, []);
 
   return (
     <>
-      <header>
-        <h1>Bem vindo a calculadora de jornada de trabalho Acuttis</h1>
-      </header>
-      <main>
+      <Styled.HeaderLogin>
+        <div className='range'>
+          <h2>Calculadora de jornada de trabalho Acuttis</h2>
+        </div>
+      </Styled.HeaderLogin>
+      <Styled.MainLogin>
         <AccessForm schema={loginSchema} rote='/login' registering={false} />
-      </main>
+      </Styled.MainLogin>
     </>
   );
 };
