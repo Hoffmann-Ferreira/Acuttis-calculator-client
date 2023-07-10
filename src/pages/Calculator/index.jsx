@@ -4,11 +4,13 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import api from '../../services/api';
+import HoursHistory from '../../components/History';
 
 const Calculator = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
   const [value, setValue] = useState(0);
+  const [refresh, setRefresh] = useState(false);
 //   let amout = 0;
 
   useEffect(() => {
@@ -45,6 +47,7 @@ const Calculator = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({ resolver });
 
@@ -62,6 +65,8 @@ const Calculator = () => {
       .then((res) => {
         setValue(res.data.createdServiceHours.amount);
         console.log('valor total', res.data.createdServiceHours.amount)
+        setRefresh(!refresh);
+        reset();
       })
       .catch((err) => {
         console.log(err);
@@ -69,7 +74,6 @@ const Calculator = () => {
       });
   };
 
-  // valor = valor.replace(",", ".")
 
   return (
     <>
@@ -79,7 +83,7 @@ const Calculator = () => {
       <main>
         <h2>Regras</h2>
         <form onSubmit={handleSubmit(handleCaculation)}>
-          <labe>Nome do colaborador:</labe>
+          <label>Nome do colaborador:</label>
           <input
             type='text'
             placeholder='Nome colaborador'
@@ -122,6 +126,10 @@ const Calculator = () => {
         </form>
       </main>
       <p> valor total: {value}</p>
+      <div>
+        <HoursHistory refresh={refresh}/>
+
+      </div>
     </>
   );
 };
