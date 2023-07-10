@@ -21,6 +21,7 @@ const AccessForm = (props) => {
         console.log('data', res.data);
         console.log('token', res.data.token);
         localStorage.setItem('token', res.data.token);
+        localStorage.setItem('userId', res.data.userId);
         if (props.registering) {
           navigate('/');
         } else {
@@ -35,7 +36,7 @@ const AccessForm = (props) => {
   return (
     <>
       <form onSubmit={handleSubmit(handleAcess)}>
-        <fieldset>
+        
           {props.registering && (
             <>
               <label>Nome:</label>
@@ -84,7 +85,7 @@ const AccessForm = (props) => {
               </>
             )}
           </div>
-        </fieldset>
+        
       </form>
     </>
   );
