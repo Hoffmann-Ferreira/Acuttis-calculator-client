@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import api from '../../services/api';
+import toast from 'react-hot-toast';
 
 const AccessForm = (props) => {
   const navigate = useNavigate();
@@ -22,14 +23,31 @@ const AccessForm = (props) => {
         console.log('token', res.data.token);
         localStorage.setItem('token', res.data.token);
         localStorage.setItem('userId', res.data.userId);
+
         if (props.registering) {
           navigate('/');
+          toast.success('Cadastrado!', {
+            icon: '✅',
+            style: {
+              borderRadius: '10px',
+              background: '#AA6CFF',
+              color: '#fff',
+            },
+          });
         } else {
           navigate('/calculadora');
         }
       })
       .catch((err) => {
         console.log('Não logado', err);
+        toast.error('Dados incorretos!', {
+          icon: '❌',
+          style: {
+            borderRadius: '10px',
+            background: '#AA6CFF',
+            color: '#fff',
+          },
+        });
       });
   };
 

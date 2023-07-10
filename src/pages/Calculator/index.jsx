@@ -5,13 +5,14 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import api from '../../services/api';
 import HoursHistory from '../../components/History';
+import toast from 'react-hot-toast';
 
 const Calculator = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
   const [value, setValue] = useState(0);
   const [refresh, setRefresh] = useState(false);
-//   let amout = 0;
+  //   let amout = 0;
 
   useEffect(() => {
     if (!token) {
@@ -53,9 +54,9 @@ const Calculator = () => {
 
   const headers = {
     headers: {
-        authorization: `Bearer ${token}`,
+      authorization: `Bearer ${token}`,
     },
-};
+  };
 
   const handleCaculation = (data) => {
     data.daytimePrice = data.daytimePrice.replace(',', '.');
@@ -64,24 +65,55 @@ const Calculator = () => {
       .post('/calculate-hours', data, headers)
       .then((res) => {
         setValue(res.data.createdServiceHours.amount);
-        console.log('valor total', res.data.createdServiceHours.amount)
+        console.log('valor total', res.data.createdServiceHours.amount);
         setRefresh(!refresh);
         reset();
       })
       .catch((err) => {
         console.log(err);
-        console.log('Não deu');
+        toast.error('Preencher os campos corretamente verifique as regras!', {
+          icon: '❌',
+          style: {
+            borderRadius: '10px',
+            background: '#AA6CFF',
+            color: '#fff',
+          },
+        });
       });
   };
 
+  const logout = () => {
+    localStorage.clear();
+    navigate('/');
+    toast.success('Deslogado!', {
+      icon: '✅',
+      style: {
+        borderRadius: '10px',
+        background: '#AA6CFF',
+        color: '#fff',
+      },
+    });
+  };
 
   return (
     <>
       <header>
-        <h1>Acuttis sistema de de apuração de horas trabalhadas </h1>
+        <div>
+          <h1>Acuttis sistema de apuração de jornada de trabalho </h1>
+          <button onClick={() => logout()}>Sair</button>
+        </div>
       </header>
       <main>
-        <h2>Regras</h2>
+        <h3>Regras:</h3>
+        <p>Preencha os campos a baixo seguindo as seguintes diretrizes!</p>
+        <ol>
+          <li>Prenchimento obrigatório de todos os campos;</li>
+          <li>A jornada de trabalho não deve ultrapassar 24hrs;</li>
+          <li>
+            Os valores das horas diurna e noturna deve ser em moeda nacional,
+            real;
+          </li>
+        </ol>
         <form onSubmit={handleSubmit(handleCaculation)}>
           <label>Nome do colaborador:</label>
           <input
@@ -127,8 +159,7 @@ const Calculator = () => {
       </main>
       <p> valor total: {value}</p>
       <div>
-        <HoursHistory refresh={refresh}/>
-
+        <HoursHistory refresh={refresh} />
       </div>
     </>
   );
