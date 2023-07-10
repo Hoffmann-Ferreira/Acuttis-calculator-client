@@ -6,8 +6,8 @@ import Register from '../pages/Register';
 const AppRouter = () => {
   return (
     <Routes>
-      <Route exact path='/' Component={Login} />
-      <Route exact path='registrar' Component={Register} />
+      <Route path='/' element={<Login/>} />
+      <Route path='/registrar' element={<Register/>} />
     </Routes>
   );
 };

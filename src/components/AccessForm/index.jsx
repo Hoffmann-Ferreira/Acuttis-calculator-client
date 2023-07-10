@@ -20,6 +20,7 @@ const AccessForm = (props) => {
       .then((res) => {
         console.log('data', res.data);
         console.log('token', res.data.token);
+        localStorage.setItem('token', res.data.token);
       })
       .catch((err) => {
         console.log('deu ruim', err);
