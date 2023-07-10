@@ -21,9 +21,14 @@ const AccessForm = (props) => {
         console.log('data', res.data);
         console.log('token', res.data.token);
         localStorage.setItem('token', res.data.token);
+        if (props.registering) {
+          navigate('/');
+        } else {
+          navigate('/calculadora');
+        }
       })
       .catch((err) => {
-        console.log('deu ruim', err);
+        console.log('Não logado', err);
       });
   };
 
@@ -50,11 +55,13 @@ const AccessForm = (props) => {
           />
           <p>{errors?.email?.message}</p>
           <label>Digite sua senha:</label>
-          {props.registering && (
+          {props.registering ? (
             <p>
               A senha deve conter no mínimo 8 caracteres e incluir pelo menos
               uma letra maiúscula um dígito e caracter especial
             </p>
+          ) : (
+            <p>Senha incorreta!</p>
           )}
           <input
             type='tetxt'
@@ -66,9 +73,7 @@ const AccessForm = (props) => {
             {props.registering ? (
               <>
                 <button type='submit'>Salvar</button>
-                <button onClick={() => navigate('/')}>
-                  Retornar para login
-                </button>
+                <button onClick={() => navigate('/')}>Retornar</button>
               </>
             ) : (
               <>

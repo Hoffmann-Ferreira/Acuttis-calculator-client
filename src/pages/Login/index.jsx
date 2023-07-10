@@ -23,7 +23,7 @@ const Login = () => {
 
   useEffect(() => {
     if (token) {
-      navigate('/registrar');
+      navigate('/calculadora');
       console.log('entrei')
     } else {
       navigate('/');
@@ -34,7 +34,6 @@ const Login = () => {
     <>
       <header>
         <h1>Bem vindo a calculadora de jornada de trabalho Acuttis</h1>
-        {/* <button onClick={() => navigate('/registrar')}>Cadastrar-se</button> */}
       </header>
       <main>
         <AccessForm schema={loginSchema} rote='/login' registering={false} />
