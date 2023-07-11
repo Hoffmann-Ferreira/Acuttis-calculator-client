@@ -6,7 +6,7 @@ Acuttis Calculator é uma aplicação que calcula a jornada de trabalho do colab
 
 <hr> 
 
-<h3 align=center> Contruído com </h3>
+<h3 align=center> Construído com </h3>
 <div align=center>
 <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB">
 <img  src="https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white">
