@@ -69,8 +69,7 @@ const Calculator = () => {
         reset();
       })
       .catch((err) => {
-        console.log('Erro ao postar', err);
-        toast.error('Preencher os campos corretamente verifique as regras!', {
+        toast.error(err.response.data.menssageError, {
           icon: '❌',
           style: {
             borderRadius: '10px',

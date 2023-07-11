@@ -20,9 +20,10 @@ const AccessForm = (props) => {
     api
       .post(props.rote, data)
       .then((res) => {
-        localStorage.setItem('token', res.data.token);
-        localStorage.setItem('userId', res.data.userId);
-
+        if(props.rote == "/login"){
+          localStorage.setItem('token', res.data.token);
+          localStorage.setItem('userId', res.data.userId);
+        }
         if (props.registering) {
           navigate('/');
           toast.success('Cadastrado!', {
@@ -38,8 +39,8 @@ const AccessForm = (props) => {
         }
       })
       .catch((err) => {
-        console.log('Não logado', err);
-        toast.error('Dados incorretos!', {
+        console.log('Não logado', err.response.data.message);
+        toast.error(err.response.data.message, {
           icon: '❌',
           style: {
             borderRadius: '10px',
