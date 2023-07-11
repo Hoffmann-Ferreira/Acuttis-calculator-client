@@ -25,7 +25,6 @@ const Login = () => {
   useEffect(() => {
     if (token) {
       navigate('/calculadora');
-      console.log('entrei');
     } else {
       navigate('/');
     }

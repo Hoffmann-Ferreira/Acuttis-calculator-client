@@ -65,12 +65,11 @@ const Calculator = () => {
       .post('/calculate-hours', data, headers)
       .then((res) => {
         setValue(res.data.createdServiceHours.amount);
-        console.log('valor total', res.data.createdServiceHours.amount);
         setRefresh(!refresh);
         reset();
       })
       .catch((err) => {
-        console.log(err);
+        console.log('Erro ao postar', err);
         toast.error('Preencher os campos corretamente verifique as regras!', {
           icon: '❌',
           style: {

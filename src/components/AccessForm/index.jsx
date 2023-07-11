@@ -20,8 +20,6 @@ const AccessForm = (props) => {
     api
       .post(props.rote, data)
       .then((res) => {
-        console.log('data', res.data);
-        console.log('token', res.data.token);
         localStorage.setItem('token', res.data.token);
         localStorage.setItem('userId', res.data.userId);
 

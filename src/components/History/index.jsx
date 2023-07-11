@@ -20,10 +20,9 @@ const HoursHistory = (props) => {
         setUserHistory(res.data.hours.reverse());
       })
       .catch((err) => {
-        console.log('deu errado', err);
+        console.log('Erro ao carregar', err);
       });
   };
-  console.log('historico', userHistory);
 
   useEffect(() => {
     handleHistory();
